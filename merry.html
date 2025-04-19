@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Surprise</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #003366; /* Christmas night theme */
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            color: white;
+        }
+
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: #d32f2f;
+            border-radius: 5px;
+            cursor: pointer;
+            transform: perspective(600px) rotateX(0deg);
+            transition: transform 0.5s;
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: #ffccbc;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transition: transform 0.5s;
+        }
+
+        .envelope.open {
+            transform: perspective(600px) rotateX(360deg);
+        }
+
+        .envelope.open::before {
+            transform: translateY(-200px);
+        }
+
+        .message {
+            display: none;
+            text-align: center;
+        }
+
+        .message.open {
+            display: block;
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .question {
+            margin-top: 20px;
+        }
+
+        .button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .yes {
+            background: #4caf50;
+            color: white;
+        }
+
+        .no {
+            background: #d32f2f;
+            color: white;
+        }
+
+        /* Snowfall */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            font-size: 1em;
+            color: white;
+            animation: fall 10s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Raindrops */
+        .raindrop {
+            position: fixed;
+            top: -10px;
+            width: 2px;
+            height: 10px;
+            background: white;
+            animation: rain 2s linear infinite;
+        }
+
+        @keyframes rain {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Deer */
+        .deer {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2em;
+            animation: moveDeer 5s infinite alternate;
+        }
+
+        @keyframes moveDeer {
+            0% {
+                left: 10%;
+            }
+            100% {
+                left: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="envelope" id="envelope">
+        <div class="message" id="message">
+            <h1>Merry Christmas!</h1>
+            <p>Want to spend every year like this with me?</p>
+            <div class="question">
+                <button class="button yes" id="yesButton">Yes</button>
+                <button class="button no" id="noButton">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Snowfall Effect -->
+    <div class="snowflake" style="left: 20%; animation-delay: 0s;">❄</div>
+    <div class="snowflake" style="left: 50%; animation-delay: 1s;">❄</div>
+    <div class="snowflake" style="left: 80%; animation-delay: 2s;">❄</div>
+
+    <!-- Rain Effect -->
+    <div class="raindrop" style="left: 25%; animation-delay: 0s;"></div>
+    <div class="raindrop" style="left: 60%; animation-delay: 0.5s;"></div>
+    <div class="raindrop" style="left: 85%; animation-delay: 1s;"></div>
+
+    <!-- Deer Animation -->
+    <div class="deer">🦌</div>
+
+    <script>
+        const envelope = document.getElementById('envelope');
+        const message = document.getElementById('message');
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+
+        envelope.addEventListener('click', () => {
+            envelope.classList.add('open');
+            setTimeout(() => {
+                message.classList.add('open');
+            }, 500);
+        });
+
+        noButton.addEventListener('click', () => {
+            while (true) {
+                if (confirm('Are you sure?')) {
+                    break;
+                }
+            }
+        });
+
+        yesButton.addEventListener('click', () => {
+            alert('Lets go!');
+        });
+    </script>
+</body>
+</html>
